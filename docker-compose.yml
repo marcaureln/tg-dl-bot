@@ -1,0 +1,11 @@
+version: '3.9'
+
+services:
+  bot:
+    build: .
+    container_name: tg-dl-bot
+    restart: unless-stopped
+    ports:
+      - "8081:8081"
+    env_file:
+      - .env
