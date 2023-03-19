@@ -5,7 +5,12 @@ services:
     build: .
     container_name: tg-dl-bot
     restart: unless-stopped
+    working_dir: /tg-dl-bot
+    command: bash -c "telegram-bot-api --local & yarn dev"
     ports:
       - "8081:8081"
     env_file:
       - .env
+    volumes:
+      - ./src:/tg-dl-bot/src
+      - ./telegram:/telegram

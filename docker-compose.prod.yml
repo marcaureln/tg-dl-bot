@@ -1,0 +1,9 @@
+version: '3.9'
+
+services:
+  bot:
+    build: ghcr.io/marcaureln/tg-dl-bot:latest
+    container_name: tg-dl-bot
+    restart: always
+    env_file:
+      - .env

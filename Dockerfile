@@ -1,11 +1,9 @@
-FROM ubuntu:22.04
+FROM node:18
 
 LABEL org.opencontainers.image.source https://github.com/marcaureln/tg-dl-bot
 
-ARG BUILD_TYPE=Release
-
 RUN apt-get update && \
-    apt-get install -y make git zlib1g-dev libssl-dev gperf cmake clang-14 libc++-dev libc++abi-dev && \ 
+    apt-get install -y make git zlib1g-dev libssl-dev gperf cmake clang libc++-dev libc++abi-dev && \ 
     rm -rf /var/lib/apt/lists/* && \ 
     apt-get clean
 
@@ -14,9 +12,18 @@ RUN git clone --recursive https://github.com/tdlib/telegram-bot-api.git && \
     rm -rf build && \
     mkdir build && \
     cd build && \
-    CXXFLAGS="-stdlib=libc++" CC=/usr/bin/clang-14 CXX=/usr/bin/clang++-14 cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX:PATH=/usr/local .. && \
+    CXXFLAGS="-stdlib=libc++" CC=/usr/bin/clang CXX=/usr/bin/clang++ cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX:PATH=/usr/local .. && \
     cmake --build . --target install
 
-CMD telegram-bot-api --local
+COPY . /tg-dl-bot
+
+RUN cd /tg-dl-bot && \
+    yarn install && \
+    yarn build
+
+WORKDIR /tg-dl-bot
+
+CMD telegram-bot-api --local & \
+    node dist/index.js
 
 EXPOSE 8081

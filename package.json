@@ -1,0 +1,26 @@
+{
+  "name": "tg-dl-bot",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "prestart": "yarn build",
+    "start": "node dist/index.js",
+    "dev": "tsc -w & nodemon -q -w dist dist/index.js"
+  },
+  "devDependencies": {
+    "@types/node": "^18.15.3",
+    "nodemon": "^2.0.21",
+    "typescript": "^5.0.2"
+  },
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "telegraf": "^4.12.2"
+  },
+  "volta": {
+    "node": "18.15.0",
+    "yarn": "1.22.19"
+  }
+}
