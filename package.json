@@ -8,11 +8,13 @@
     "build": "tsc",
     "prestart": "yarn build",
     "start": "node dist/index.js",
-    "dev": "tsc -w & nodemon -q -w dist dist/index.js"
+    "dev": "tsc -w & nodemon -q -w dist dist/index.js",
+    "format": "prettier --ignore-path .gitignore --write ."
   },
   "devDependencies": {
     "@types/node": "^18.15.3",
     "nodemon": "^2.0.21",
+    "prettier": "^2.8.4",
     "typescript": "^5.0.2"
   },
   "dependencies": {
